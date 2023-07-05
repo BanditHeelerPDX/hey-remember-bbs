@@ -1,0 +1,46 @@
+
+ 
+// Define a mixin for the button style
+@mixin btn($bg-color: #e2e2e2) {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    border: 0;
+    padding: $base-padding $base-padding * 2;
+    border-radius: $base-border-radius;
+    background-color: $bg-color;
+  }
+// Apply the button style to elements with the class "btn"
+  .btn {
+    @include btn;
+  }
+// Iterate over each key-value pair in the $colors variable
+  @each $key, $val in $colors {
+// Create a class for the button with the key as part of its name
+    .btn-#{$key} {
+      @include btn($val);
+// Add hover styles to lighten the background color
+      &:hover {
+        background-color: lighten($val, 5);
+      }
+    }
+// Create a class for the outlined button with the key as part of its name
+    .btn-outlined-#{$key} {
+      @include btn(#fff);
+      border: $base-border-thickness solid $val;
+// Add hover styles to restore the background color
+      &:hover {
+        background-color: $val;
+      }
+    }
+// Create a class for the complement button with the key as part of its name
+    .btn-complement-#{$key} {
+        @include btn($val);
+        color: light-comp($val);
+// Add hover styles to switch colors and background
+        &:hover {
+            color: $val;
+            background-color: light-comp($val);
+        }
+    }
+  }
