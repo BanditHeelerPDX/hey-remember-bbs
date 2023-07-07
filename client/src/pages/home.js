@@ -1,12 +1,15 @@
 // Imports
 import React, { useState } from 'react';
+import mainPage from './mainPage';
 import login from './login';
 import logout from './logout'
 import profile from './profile';
 import search from './search';
 
-const homePage = () => {
+function Homepage () {
     //Logic needed for login status
+    //Set false for testing, change later
+    let loggedIn = false;
 
     //Logic for navbar
     const navState = (loggedIn) => {
@@ -16,17 +19,17 @@ const homePage = () => {
             case loggedIn:
                 return(
                     <div className='navbar'>
-                        <button type='navButton' onClick={() => setpageType(0)}>Home</button>
-                        <button type='navButton' onClick={() => setpageType(2)}>Profile</button>
-                        <button type='navButton' onClick={() => setpageType(3)}>Search</button>
-                        <button type='navButton' onClick={() => setpageType(4)}>Logout</button>
+                        <button type='navButton' onClick={() => setPagetype(0)}>Home</button>
+                        <button type='navButton' onClick={() => setPagetype(2)}>Profile</button>
+                        <button type='navButton' onClick={() => setPagetype(3)}>Search</button>
+                        <button type='navButton' onClick={() => setPagetype(4)}>Logout</button>
                     </div>
                 );
             default:
                 return(
                     <div className='navbar'>
-                        <button type='navButton' onClick={() => setpageType(0)}>Home</button>
-                        <button type='navButton' onClick={() => setpageType(1)}>Login</button>
+                        <button type='navButton' onClick={() => setPagetype(0)}>Home</button>
+                        <button type='navButton' onClick={() => setPagetype(1)}>Login</button>
                     </div>
                 );
         }
@@ -34,24 +37,24 @@ const homePage = () => {
 
     //Logic for page type
     const pageState = (state) => {
-        // This returns the whole given page
+        // This returns the correct bottom portion of the page
         switch(state){
             case 0:
-                return 'mainPage';
+                return mainPage();
             case 1:
-                return 'login';
+                return login();
             case 2:
-                return 'profile';
+                return profile();
             case 3:
-                return 'search';
+                return search();
             case 4:
-                return 'logout';
+                return logout();
             default:
-                return 'mainPage';
+                return mainPage();
         }
     };
     //Holds state var for above function
-    const [pageType, setpageType] = useState(0);
+    const [Pagetype, setPagetype] = useState(0);
 
     // Fully constructed homepage
     // Will change depending on loggedIn & usage of pageState
@@ -66,10 +69,10 @@ const homePage = () => {
             </div>
 
             {/* Upper section is static on every page, this determines page type */}
-            {this.pageState(pageType)}
+            {this.pageState(Pagetype)}
 
         </div>
     );
 };
 
-export default homePage;
+export default Homepage;
