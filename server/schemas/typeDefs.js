@@ -32,11 +32,11 @@ const typeDefs = gql`
 
   type Query {
     getUsers: [User]
-    getUserByID(_id: ID!): User
+    getUserByUsername(username: String): User
     getPosts(username: String): [Post]
     getPostByID(_id: ID!): Post
     getFriends(username: String): [Friend]
-    getFriendById(friendId: ID!): Friend
+    getFriendByUsername(username: String): Friend
   }
 
   type Mutation {
