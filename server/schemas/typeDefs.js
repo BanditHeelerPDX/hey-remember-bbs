@@ -60,8 +60,8 @@ module.exports = typeDefs;
 //     id: ID!
 //     username: String!
 //     email: String!
-//     followers: [ID!]!
-//     followings: [ID!]!
+//     minions: [ID!]!
+//     friends: [ID!]!
 //   }
 
 //   type Post {

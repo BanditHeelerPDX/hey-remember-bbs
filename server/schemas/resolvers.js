@@ -268,9 +268,9 @@ module.exports = resolvers;
 //       try {
 //         const user = await User.findById(id);
 //         const currentUser = await User.findById(userId);
-//         if (!user.followers.includes(userId)) {
-//           await user.updateOne({ $push: { followers: userId } });
-//           await currentUser.updateOne({ $push: { followings: id } });
+//         if (!user.minions.includes(userId)) {
+//           await user.updateOne({ $push: { minions: userId } });
+//           await currentUser.updateOne({ $push: { friends: id } });
 //           return "User has been followed";
 //         } else {
 //           return "You already follow this user";
@@ -283,9 +283,9 @@ module.exports = resolvers;
 //       try {
 //         const user = await User.findById(id);
 //         const currentUser = await User.findById(userId);
-//         if (user.followers.includes(userId)) {
-//           await user.updateOne({ $pull: { followers: userId } });
-//           await currentUser.updateOne({ $pull: { followings: id } });
+//         if (user.minions.includes(userId)) {
+//           await user.updateOne({ $pull: { minions: userId } });
+//           await currentUser.updateOne({ $pull: { friends: id } });
 //           return "User has been unfollowed";
 //         } else {
 //           return "You do not follow this user";

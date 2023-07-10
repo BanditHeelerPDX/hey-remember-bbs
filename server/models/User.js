@@ -58,8 +58,8 @@ module.exports = User;
 //   username: { type: String, required: true, unique: true },
 //   email: { type: String, required: true, unique: true },
 //   password: { type: String, required: true },
-//   followers: { type: Array, default: [] },
-//   followings: { type: Array, default: [] },
+//   minions: { type: Array, default: [] },
+//   friends: { type: Array, default: [] },
 // });
 
 // module.exports = model("User", userSchema);
