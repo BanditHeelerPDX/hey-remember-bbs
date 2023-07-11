@@ -52,3 +52,44 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
+
+// const { gql } = require("apollo-server-express");
+
+// const typeDefs = gql`
+//   type User {
+//     id: ID!
+//     username: String!
+//     email: String!
+//     minions: [ID!]!
+//     friends: [ID!]!
+//   }
+
+//   type Post {
+//     id: ID!
+//     userId: ID!
+//     content: String!
+//     likes: [ID!]!
+//   }
+
+//   type Query {
+//     getUser(id: ID!): User!
+//     getPost(id: ID!): Post!
+//     getTimelinePosts(userId: ID!): [Post!]!
+//   }
+
+//   type Mutation {
+//     registerUser(username: String!, email: String!, password: String!): User!
+//     loginUser(email: String!, password: String!): User!
+//     updateUser(id: ID!, username: String, email: String, password: String): User!
+//     deleteUser(id: ID!): String!
+//     createPost(userId: ID!, content: String!): Post!
+//     updatePost(id: ID!, userId: ID!, content: String!): String!
+//     deletePost(id: ID!, userId: ID!): String!
+//     likePost(id: ID!, userId: ID!): String!
+//     dislikePost(id: ID!, userId: ID!): String!
+//     followUser(id: ID!, userId: ID!): String!
+//     unfollowUser(id: ID!, userId: ID!): String!
+//   }
+// `;
+
+// module.exports = typeDefs;
