@@ -2,6 +2,10 @@ const { model, Schema } = require("mongoose");
 const User = require("./User");
 
 const PostSchema = new Schema({
+  userID: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   postText: {
     type: String,
     required: [true, "Empty posts are not allowed"],
@@ -9,11 +13,14 @@ const PostSchema = new Schema({
     maxlength: [225, "Posts cannot be longer than 225 characters"],
     trim: true,
   },
-  postAuthor: [User.schema],
   postDate: {
     type: Date,
     default: Date.now,
   },
+  // likes: {
+  //   type: Array,
+  //   default: [],
+  // },
   comments: [
     {
       commentText: {
@@ -35,13 +42,3 @@ const PostSchema = new Schema({
 const Post = model("Post", PostSchema);
 
 module.exports = Post;
-
-// const { Schema, model } = require("mongoose");
-
-// const postSchema = new Schema({
-//   userId: { type: Schema.Types.ObjectId, ref: "User" },
-//   content: { type: String, required: true },
-//   likes: { type: Array, default: [] },
-// });
-
-// module.exports = model("Post", postSchema);
