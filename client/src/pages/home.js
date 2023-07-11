@@ -15,8 +15,7 @@ function Homepage () {
     const navState = (loggedIn) => {
         // This returns the type of navbar based on if you are
         // logged in or logged out.
-        switch(loggedIn){
-            case loggedIn:
+        if (loggedIn){
                 return(
                     <div className='navbar'>
                         <button type='navButton' onClick={() => setPagetype(0)}>Home</button>
@@ -25,14 +24,14 @@ function Homepage () {
                         <button type='navButton' onClick={() => setPagetype(4)}>Logout</button>
                     </div>
                 );
-            default:
-                return(
-                    <div className='navbar'>
-                        <button type='navButton' onClick={() => setPagetype(0)}>Home</button>
-                        <button type='navButton' onClick={() => setPagetype(1)}>Login</button>
-                    </div>
-                );
         }
+
+        return(
+            <div className='navbar'>
+                <button type='navButton' onClick={() => setPagetype(0)}>Home</button>
+                <button type='navButton' onClick={() => setPagetype(1)}>Login</button>
+            </div>
+        );
     }
 
     //Logic for page type
@@ -65,11 +64,11 @@ function Homepage () {
                 <h1>Phonebook</h1>
 
                 {/* Navbar changes based on logged in state */}
-                {this.navState(loggedIn)}
+                {navState(loggedIn)}
             </div>
 
             {/* Upper section is static on every page, this determines page type */}
-            {this.pageState(Pagetype)}
+            {pageState(Pagetype)}
 
         </div>
     );

@@ -12,3 +12,5 @@ const User = ({ user }) => {
       </div>
     );
   };
+
+export default User;
