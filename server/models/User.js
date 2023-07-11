@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const bcrypt = require("bcrypt");
-const Friend = require("./Friend");
 
 const UserSchema = new mongoose.Schema({
   username: {
