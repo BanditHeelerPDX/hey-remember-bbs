@@ -33,21 +33,29 @@ const PostForm = ({ userId }) => {
   };
 
   return (
-    <div>
-      <h2>Create a New Post</h2>
+    <div className="container">
+       <div className="card bg-purple-dark-7 o-90">
+      <h2 className="card-title text-orange ml-3">Create a New Post</h2>
       {error && <div>Error creating post</div>}
       <form onSubmit={handleFormSubmit}>
-        <div>
+        
           <label htmlFor="postText">Post Text:</label>
           <textarea
             name="postText"
             value={postText}
             onChange={(event) => setPostText(event.target.value)}
             placeholder="Write your post here..."
+            className="card col-12-xs mb-2 bg-purple-light-9"
           />
-        </div>
-        <button type="submit">Create Post</button>
+       
+        <button 
+        type="submit"
+        className="btn card col-12-xs mb-2 bg-purple-light-9"
+        >
+          Create Post
+        </button>
       </form>
+      </div>
     </div>
   );
 };
