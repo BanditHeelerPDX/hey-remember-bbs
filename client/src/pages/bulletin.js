@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // This is going to return a html chunk that will have the header "Bulletin", a bar to swap post types,
 // and below those two, a section full of card that will be user posted thoughts/comments, etc
-const mainPage = () => {
+const bulletin = () => {
 
     //These are used to handle the drop menu options.
     const [Value, setValue] = useState[0];
@@ -34,4 +34,4 @@ const mainPage = () => {
     );
 };
 
-export default mainPage;
+export default bulletin;
