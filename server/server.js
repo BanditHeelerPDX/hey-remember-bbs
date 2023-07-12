@@ -8,6 +8,7 @@ const { authorized } = require("./utils/auth");
 const PORT = process.env.PORT || 5001;
 const app = express();
 const server = new ApolloServer({
+  introspection: true,
   typeDefs,
   resolvers,
   context: authorized,
