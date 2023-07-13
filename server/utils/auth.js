@@ -1,34 +1,31 @@
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const secret = process.env.SECRET;
-const expiry = "2h";
 
-const authorized = (req, res, next) => {
-  let token = req.query.token || req.body.token || req.headers.authorization;
+const secret = "SeaTecAstronomyisAwesome";
+const expiration = "2h";
 
-  if (req.headers.authorization) {
-    token = token.split(" ").pop().trim();
-  }
+module.exports = {
+  authorized: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-  if (!token) {
-    return res
-      .status(401)
-      .json({ message: "Uh uh uhhh, you didn't say the magic word!" });
-  }
+    if (req.headers.authorization) {
+      token = token.split(" ").pop().trim();
+    }
 
-  try {
-    const { data } = jwt.verify(token, secret, { maxAge: expiry });
-    req.user = data;
-    next();
-  } catch {
-    return res.status(401).json({ message: "Invalid token, please try again" });
-  }
+    if (!token) {
+      return req;
+    }
+
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch {
+      console.log("Invalid token");
+    }
+
+    return req;
+  },
+  signToken: function ({ email, username, _id }) {
+    const payload = { email, username, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
 };
-
-const signToken = ({ username, email, _id }) => {
-  const payload = { username, email, _id };
-
-  return jwt.sign({ data: payload }, secret, { expiresIn: expiry });
-};
-
-module.exports = { authorized, signToken };
