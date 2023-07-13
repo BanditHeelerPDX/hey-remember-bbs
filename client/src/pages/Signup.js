@@ -41,13 +41,13 @@ const Signup = () => {
   return (
     <div className="display-f row justify-center mb-4">
       <div className="col-12 col-10-md">
-        <div className="mt-4 card bg-purple-dark-7 o-90">
-          <h2 className="card-title text-orange ml-3">Sign-up</h2>
+        <div className="mt-4 card bg-blue-dark-4 o-90">
+          <h2 className="card-title text-orange-light-3 ml-3">Sign-up</h2>
           <div className="card-body flex-row justify-center mb-2">
-            <form method="post" onSubmit={handleSubmit}>
+            <form className="text-orange-light-3"  method="post" onSubmit={handleSubmit}>
               <label htmlFor="signup-username">Username: </label>
               <input
-                className="card col-12-xs mb-2 bg-purple-light-9"
+                className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="Your username"
                 type="text"
                 value={formState.name}
@@ -57,7 +57,7 @@ const Signup = () => {
 
               <label htmlFor="signup-password">Password: </label>
               <input
-                className="card col-12-xs mb-2 bg-purple-light-9"
+                className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="******"
                 type="text"
                 value={formState.password}
@@ -67,7 +67,7 @@ const Signup = () => {
 
               <label htmlFor="signup-email">Email: </label>
               <input
-                className="card col-12-xs mb-2 bg-purple-light-9"
+                className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="Your email"
                 type="text"
                 value={formState.email}
@@ -75,7 +75,7 @@ const Signup = () => {
                 onChange={handleChange}
               ></input>
               <button
-                className="btn-outlined-orange text-purple text-hover-white"
+                className="btn-outlined-orange text-blue text-hover-white"
                 type="submit"
               >
                 Submit

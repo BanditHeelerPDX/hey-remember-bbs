@@ -10,7 +10,7 @@ function Homepage () {
     // Will change depending on loggedIn & usage of pageState
     return (
         /* Main Div */
-        <div className='container mt-3 p-1 text-orange-dark-3 bg-purple-light-9'>
+        <div className=' font-lg container mt-3 p-1 text-orange-light-3 bg-blue-dark-4'>
             <div className='row justify-center'>
             <div className="col-12-xs col-10-md">
 <p className='m-1'>Welcome to PhoneBook, the ultimate social media app that's got all the vibes and connects you with your crew like never before!</p>
