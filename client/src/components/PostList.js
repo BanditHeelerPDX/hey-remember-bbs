@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_POSTS } from "../utils/queries";
+import CommentList from "./CommentList";
 
 const PostList = () => {
   const { loading, data } = useQuery(QUERY_POSTS);
@@ -23,16 +24,7 @@ const PostList = () => {
               <h3>{post.postText}</h3>
               <p>Posted by: {post.userId}</p>
               <p>Date: {new Date(post.postDate).toLocaleString()}</p>
-              <div className="container">
-              <h4 className="mt-2">Comments:</h4>
-              {post.comments.map((comment) => (
-                <div key={comment._id} className="comment card bg-orange-light-2">
-                  <p className="card-body">{comment.commentText}</p>
-                  <p>Posted by: {comment.commentAuthor.username}</p>
-                  <p>Date: {new Date(comment.commentDate).toLocaleString()}</p>
-                </div>
-              ))}
-              </div>
+              <CommentList comments={post.comments} />
             </div>
           ))}
         </div>
