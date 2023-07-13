@@ -8,16 +8,11 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Home from './pages/home';
+import Homepage from "./pages/Homepage";
 import Profile from './pages/profile';
-import Login from './pages/login';
-import Logout from './pages/logout';
+import Logon from "./pages/Logon";
+import Signup from "./pages/Signup";
 import Bulletin from './pages/bulletin';
-import Nav from './components/taskbar';
-// import Signup from './pages/Signup';
-// import Login from './pages/Login';
-// import SingleThought from './pages/SingleThought';
-import Profile from "./pages/profile";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -49,12 +44,13 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-        <Nav />
+        <div className="app-container flex-column justify-flex-start bg-blue-light-9">
+        <Header />
+        <div className="content-container">
         <Routes>
           <Route
             path='/'
-            element={<Home />}
+            element={<Homepage />}
           />
           <Route 
             path='/bulletin'
@@ -65,18 +61,22 @@ function App() {
             element={<Profile />}
           />
           <Route
-            path='/login'
-            element={<Login/>}
+            path='/Logon'
+            element={<Logon/>}
           />
           <Route 
-            path='/logout'
-            element={<Logout />}
+            path='/signup'
+            element={<Signup />}
           />
         </Routes>
+        </div>
+        <Footer />
         </div>
       </Router>
     </ApolloProvider>
   );
 }
+
+
 
 export default App;
