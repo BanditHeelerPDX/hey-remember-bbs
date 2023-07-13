@@ -44,7 +44,7 @@ const Logon = () => {
     <div className="display-f row justify-center mb-4">
       <div className="col-12 col-10-md">
         <div className="mt-4 card bg-blue-dark-4 o-90">
-          <h2 className='card-title text-orange-light-3 ml-3"'>Log-in</h2>
+          <h2 className='card-title text-orange-light-3 ml-3'>Log-in</h2>
           <div className="card-body flex-row justify-center mb-2">
             <form method="get" onSubmit={handleSubmit}>
               <label className="text-orange-light-3"  htmlFor="login-username">Username: </label>
