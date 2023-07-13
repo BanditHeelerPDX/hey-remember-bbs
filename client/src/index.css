@@ -57,18 +57,7 @@ img {
     color: pink;
   }
 }
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure the container takes up the full viewport height */
-  background-color: #f0f0f0;
-  overflow: hidden; 
-}
-.content-container {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto; /* Add vertical scroll if content exceeds viewport height */
-}
+
 .container {
   width: 100%;
   max-width: 1200px;
