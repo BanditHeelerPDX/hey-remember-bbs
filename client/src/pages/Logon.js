@@ -46,8 +46,8 @@ const Logon = () => {
         <div className="mt-4 card bg-blue-dark-4 o-90">
           <h2 className='card-title text-orange-light-3 ml-3"'>Log-in</h2>
           <div className="card-body flex-row justify-center mb-2">
-            <form className="text-orange"  method="get" onSubmit={handleSubmit}>
-              <label  htmlFor="login-username">Username: </label>
+            <form method="get" onSubmit={handleSubmit}>
+              <label className="text-orange-light-3"  htmlFor="login-username">Username: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="Your username"
@@ -57,7 +57,7 @@ const Logon = () => {
                 onChange={handleChange}
               ></input>
 
-              <label htmlFor="login-password">Password: </label>
+              <label className="text-orange-light-3"  htmlFor="login-password">Password: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="******"

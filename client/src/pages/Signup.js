@@ -44,8 +44,8 @@ const Signup = () => {
         <div className="mt-4 card bg-blue-dark-4 o-90">
           <h2 className="card-title text-orange-light-3 ml-3">Sign-up</h2>
           <div className="card-body flex-row justify-center mb-2">
-            <form className="text-orange-light-3"  method="post" onSubmit={handleSubmit}>
-              <label htmlFor="signup-username">Username: </label>
+            <form method="post" onSubmit={handleSubmit}>
+              <label className="text-orange-light-3"  htmlFor="signup-username">Username: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="Your username"
@@ -55,7 +55,7 @@ const Signup = () => {
                 onChange={handleChange}
               ></input>
 
-              <label htmlFor="signup-password">Password: </label>
+              <label className="text-orange-light-3"  htmlFor="signup-password">Password: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="******"
@@ -65,7 +65,7 @@ const Signup = () => {
                 onChange={handleChange}
               ></input>
 
-              <label htmlFor="signup-email">Email: </label>
+              <label className="text-orange-light-3"  htmlFor="signup-email">Email: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
                 placeholder="Your email"
