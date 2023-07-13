@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import Auth from "../utils/auth";
 const Header = ({ loggedIn }) => {
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
   const navState = (loggedIn) => {
     if (loggedIn) {
       return (
@@ -10,7 +14,7 @@ const Header = ({ loggedIn }) => {
             <h1 className="font-xxl text-orange">phoneBook</h1>
             <ul className="display-f">
               <li className="ml-1 text-hover-secondary">
-                <Link to="/profile">Profile</Link>
+                <Link onClick={logout} to="/profile">Profile</Link>
               </li>
               <li className="ml-1 text-hover-secondary">
                 <Link to="/">Logout</Link>
