@@ -7,7 +7,7 @@ function Homepage() {
   // Will change depending on loggedIn & usage of pageState
   return (
     /* Main Div */
-    <div className=" font-lg container mt-3 p-1 text-orange-light-3 bg-blue-dark-4">
+    <div className=" font-lg container mt-3 p-1 text-orange-light-3 bg-blue-dark-4 br-sm">
       <div className="row justify-center">
         <div className="col-12-xs col-10-md">
           <p className="m-1">

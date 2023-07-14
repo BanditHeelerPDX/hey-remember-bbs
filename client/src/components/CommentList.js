@@ -6,15 +6,17 @@ const CommentList = ({ comments }) => {
   }
 
   return (
-    <div>
-      <h4 className="mt-2">Comments:</h4>
+    <div className="container mt-2">
+      <div className="card bg-blue-dark-7 o-90 br-lg">
+      <h4 className="card-title text-orange-light-3 ml-3">Comments:</h4>
       {comments.map((comment) => (
-        <div key={comment._id} className="comment card bg-orange-light-2">
+        <div key={comment._id} className="comment card bg-orange-light-3">
           <p className="card-body">{comment.commentText}</p>
           <p>Posted by: {comment.commentAuthor.username}</p>
           <p>Date: {new Date(comment.commentDate).toLocaleString()}</p>
         </div>
       ))}
+      </div>
     </div>
   );
 };
