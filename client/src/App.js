@@ -12,7 +12,7 @@ import Homepage from "./pages/Homepage";
 import Profile from './pages/profile';
 import Logon from "./pages/Logon";
 import Signup from "./pages/Signup";
-import Bulletin from './pages/bulletin';
+import Posts from './pages/Posts';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -53,8 +53,8 @@ function App() {
             element={<Homepage />}
           />
           <Route 
-            path='/bulletin'
-            element={<Bulletin />}
+            path='/Posts'
+            element={<Posts />}
           />
           <Route 
             path='/profile/:id'

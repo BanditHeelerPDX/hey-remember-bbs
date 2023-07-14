@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_POSTS } from "../utils/queries";
-import CommentList from "./CommentList";
+import { Link } from "react-router-dom";
 
 const PostList = () => {
   const { loading, data } = useQuery(QUERY_POSTS);
@@ -21,10 +21,11 @@ const PostList = () => {
         <div className="card bg-purple-light-9 m-2 pt-2 pb-4 br-lg text-purple-dark-7">
           {posts.map((post) => (
             <div key={post._id} className="post card-body">
-              <h3>{post.postText}</h3>
-              <p>Posted by: {post.userId}</p>
-              <p>Date: {new Date(post.postDate).toLocaleString()}</p>
-              <CommentList comments={post.comments} />
+              <Link to={"/Post"}>
+                <h3>{post.postText}</h3>
+                <p>Posted by: {post.userId}</p>
+                <p>Date: {new Date(post.postDate).toLocaleString()}</p>
+              </Link>
             </div>
           ))}
         </div>
