@@ -53,12 +53,12 @@ const Logon = () => {
               </p>
             ) : (
             <form onSubmit={handleSubmit}>
-              <label className="text-orange-light-3">Username: </label>
+              <label className="text-orange-light-3">Email: </label>
               <input
                 className="card col-12-xs mb-2 bg-blue-light-9"
-                placeholder="Your username"
-                name="username"
-                type="text"
+                placeholder="Your email"
+                name="email"
+                type="email"
                 value={formState.name}
                 onChange={handleChange}
               ></input>

@@ -23,7 +23,7 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
 
@@ -50,7 +50,7 @@ const Signup = () => {
                 <Link to="/Posts">come on in!.</Link>
               </p>
             ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleFormSubmit}>
     <label className="text-orange-light-3">Username: </label>
     <input
       className="card col-12-xs mb-2 bg-blue-light-9"

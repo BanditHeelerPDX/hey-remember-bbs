@@ -18,7 +18,7 @@ import Post from "./pages/Post"
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: "http://localhost:5001/graphql",
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
@@ -57,7 +57,7 @@ function App() {
             element={<Posts />}
           />
           <Route 
-            path='/Post'
+            path='/Post/:postId'
             element={<Post />}
           />
           <Route
