@@ -15,6 +15,7 @@ import Posts from './pages/Posts';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Post from "./pages/Post"
+import User from "./pages/User";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -60,6 +61,14 @@ function App() {
             path='/Post/:postId'
             element={<Post />}
           />
+           <Route 
+                path="/me"
+                element={<User />}
+              />
+           <Route 
+                path="/profiles/:username"
+                element={<User />}
+              />
           <Route
             path='/Logon'
             element={<Logon/>}

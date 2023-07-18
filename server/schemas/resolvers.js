@@ -1,184 +1,121 @@
-const { User, Post } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
-const { signToken } = require("../utils/auth");
+const { AuthenticationError } = require('apollo-server-express');
+const { User, Post } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    getUser: async (parent, { _id }) => {
-      try {
-        const user = await User.findById(_id);
-        return user;
-      } catch (err) {
-        throw new Error("Ain't nobody runnin round here with that ID");
-      }
+    users: async () => {
+      return User.find().populate('posts');
     },
-    getPost: async (parent, { _id }) => {
-      try {
-        const post = await Post.findById(_id);
-        return post;
-      } catch (err) {
-        throw new Error("Ain't no post with that ID round here");
-      }
+    user: async (parent, { username }) => {
+      return User.findOne({ username }).populate('posts');
     },
-    getProfilePosts: async (parent, { userId }) => {
-      try {
-        const currentUser = await User.findById(userId);
-        const userPosts = await Post.find({ userId: currentUser._id });
-        const friendPosts = await Promise.all(
-          currentUser.friends.map((friendId) => {
-            return Post.find({ userId: friendId });
-          })
-        );
-        return userPosts.concat(...friendPosts);
-      } catch (err) {
-        throw new Error("Ain't no posts round here");
+    posts: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Post.find(params).sort({ createdAt: -1 });
+    },
+    post: async (parent, { postId }) => {
+      return Post.findOne({ _id: postId });
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('posts');
       }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
+
   Mutation: {
-    loginUser: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
-      if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
-      }
-      const validPass = await user.isCorrectPassword(password);
-      if (!validPass) {
-        throw new AuthenticationError("Double check your digits, bruv");
-      }
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    registerUser: async (parent, { username, email, password }) => {
-      try {
-        const hashPass = await bcrypt.hash(password, 16);
-        const newUser = new User({
-          username,
-          email,
-          password: hashPass,
-        });
-        const user = await newUser.save();
-        return user;
-      } catch (err) {
-        throw new Error("Ain't no new user round here");
-      }
-    },
-    updateUser: async (_, { id, username, email, password }) => {
-      try {
-        const updatedFields = {};
-        if (username) updatedFields.username = username;
-        if (email) updatedFields.email = email;
-        if (password) {
-          const salt = await bcrypt.genSalt(10);
-          const hashedPassword = await bcrypt.hash(password, salt);
-          updatedFields.password = hashedPassword;
-        }
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
-        const user = await User.findByIdAndUpdate(id, updatedFields, {
-          new: true,
+      if (!user) {
+        throw new AuthenticationError('No user found with this email address');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
+    addPost: async (parent, { postText }, context) => {
+      if (context.user) {
+        const post = await Post.create({
+          postText,
+          postAuthor: context.user.username,
         });
-        return user;
-      } catch (err) {
-        throw new Error("Failed to update user");
-      }
-    },
-    deleteUser: async (_, { id }) => {
-      try {
-        await User.findByIdAndDelete(id);
-        return "User deleted successfully";
-      } catch (err) {
-        throw new Error("Failed to delete user");
-      }
-    },
-    createPost: async (_, { userId, content }) => {
-      try {
-        const newPost = new Post({ userId, content });
-        const post = await newPost.save();
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { posts: post._id } }
+        );
+
         return post;
-      } catch (err) {
-        throw new Error("Failed to create post");
       }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    updatePost: async (_, { id, userId, content }) => {
-      try {
-        const post = await Post.findById(id);
-        if (post.userId.toString() !== userId)
-          throw new Error("You can only update your own post");
+    addComment: async (parent, { postId, commentText }, context) => {
+      if (context.user) {
+        return Post.findOneAndUpdate(
+          { _id: postId },
+          {
+            $addToSet: {
+              comments: { commentText, commentAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    removePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const post = await Post.findOneAndDelete({
+          _id: postId,
+          postAuthor: context.user.username,
+        });
 
-        await post.updateOne({ content });
-        return "Post updated successfully";
-      } catch (err) {
-        throw new Error("Failed to update post");
-      }
-    },
-    deletePost: async (_, { id, userId }) => {
-      try {
-        const post = await Post.findById(id);
-        if (post.userId.toString() !== userId)
-          throw new Error("You can only delete your own post");
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { posts: post._id } }
+        );
 
-        await post.deleteOne();
-        return "Post deleted successfully";
-      } catch (err) {
-        throw new Error("Failed to delete post");
+        return post;
       }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    // likePost: async (_, { id, userId }) => {
-    //   try {
-    //     const post = await Post.findById(id);
-    //     if (!post.likes.includes(userId)) {
-    //       await post.updateOne({ $push: { likes: userId } });
-    //       return "Post liked successfully";
-    //     } else {
-    //       return "You have already liked this post";
-    //     }
-    //   } catch (err) {
-    //     throw new Error("Failed to like post");
-    //   }
-    // },
-    // dislikePost: async (_, { id, userId }) => {
-    //   try {
-    //     const post = await Post.findById(id);
-    //     if (post.likes.includes(userId)) {
-    //       await post.updateOne({ $pull: { likes: userId } });
-    //       return "Post disliked successfully";
-    //     } else {
-    //       return "You have not liked this post";
-    //     }
-    //   } catch (err) {
-    //     throw new Error("Failed to dislike post");
-    //   }
-    // },
-    followUser: async (_, { id, userId }) => {
-      try {
-        const user = await User.findById(id);
-        const currentUser = await User.findById(userId);
-        if (!user.minions.includes(userId)) {
-          await user.updateOne({ $push: { minions: userId } });
-          await currentUser.updateOne({ $push: { friends: id } });
-          return "User has been followed";
-        } else {
-          return "You already follow this user";
-        }
-      } catch (err) {
-        throw new Error("Failed to follow user");
+    removeComment: async (parent, { postId, commentId }, context) => {
+      if (context.user) {
+        return Post.findOneAndUpdate(
+          { _id: postId },
+          {
+            $pull: {
+              comments: {
+                _id: commentId,
+                commentAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
       }
-    },
-    unfollowUser: async (_, { id, userId }) => {
-      try {
-        const user = await User.findById(id);
-        const currentUser = await User.findById(userId);
-        if (user.minions.includes(userId)) {
-          await user.updateOne({ $pull: { minions: userId } });
-          await currentUser.updateOne({ $pull: { friends: id } });
-          return "User has been unfollowed";
-        } else {
-          return "You do not follow this user";
-        }
-      } catch (err) {
-        throw new Error("Failed to unfollow user");
-      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };
 
 module.exports = resolvers;
+

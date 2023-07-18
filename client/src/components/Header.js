@@ -26,6 +26,11 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="ml-1 text-hover-secondary">
+                  <Link to="/me">
+                    User
+                  </Link>
+                </li>
+                <li className="ml-1 text-hover-secondary">
                   <Link onClick={logout} to="/">Logout</Link>
                 </li>
               </ul>
