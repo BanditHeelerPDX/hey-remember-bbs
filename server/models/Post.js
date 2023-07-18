@@ -1,44 +1,45 @@
-const { model, Schema } = require("mongoose");
-const User = require("./User");
+const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
-const PostSchema = new Schema({
-  userID: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+const postSchema = new Schema({
   postText: {
     type: String,
-    required: [true, "Empty posts are not allowed"],
-    minlength: [1, "Posts must be at least 1 character long"],
-    maxlength: [225, "Posts cannot be longer than 225 characters"],
+    required: 'You need to leave a post!',
+    minlength: 1,
+    maxlength: 280,
     trim: true,
   },
-  postDate: {
+  postAuthor: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
   },
-  // likes: {
-  //   type: Array,
-  //   default: [],
-  // },
   comments: [
     {
       commentText: {
         type: String,
-        required: [true, "Empty comments are not allowed"],
-        minlength: [1, "Comments must be at least 1 character long"],
-        maxlength: [225, "Comments cannot be longer than 225 characters"],
-        trim: true,
+        required: true,
+        minlength: 1,
+        maxlength: 280,
       },
-      commentAuthor: [User.schema],
-      commentDate: {
+      commentAuthor: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
       },
     },
   ],
 });
 
-const Post = model("Post", PostSchema);
+const Post = model('Post', postSchema);
 
 module.exports = Post;

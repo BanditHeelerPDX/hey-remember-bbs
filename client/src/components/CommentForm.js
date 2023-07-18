@@ -1,51 +1,44 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../utils/mutations";
-import { QUERY_POSTS } from "../utils/queries";
+import Auth from "../utils/auth";
 
 const CommentForm = ({ postId }) => {
-  const [commentText, setCommentText] = useState("");
-  const [addComment, { error }] = useMutation(ADD_COMMENT, {
-    update(cache, { data: { createComment } }) {
-      // Read the cache to get the current post's comments
-      const { post } = cache.readQuery({
-        query: QUERY_POSTS,
-        variables: { id: postId },
-      });
+  const [commentText, setCommentText] = useState('');
+  
 
-      // Update the cache with the new comment
-      cache.writeQuery({
-        query: QUERY_POSTS,
-        variables: { id: postId },
-        data: {
-          post: {
-            ...post,
-            comments: [createComment, ...post.comments],
-          },
-        },
-      });
-    },
-  });
+  const [addComment, { error }] = useMutation(ADD_COMMENT);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Call the addComment mutation to create a new comment
-      await addComment({
-        variables: { commentText, postId },
+      const { data } = await addComment({
+        variables: {
+          postId,
+          commentText,
+          commentAuthor: Auth.getProfile().data.username,
+        },
       });
 
-      // Clear the form input
-      setCommentText("");
+      setCommentText('');
     } catch (err) {
       console.error(err);
     }
   };
 
+ 
+  
+  const handleChange = (event) => {
+    const { value } = event.target; // Get the value from the textarea
+    setCommentText(value); // Update the commentText state with the textarea value
+  };
+  
+  
   return (
-    <div>
-      <h3>Add a Comment</h3>
+    <div className="container mt-2">
+      <div className="card bg-blue-dark-4 o-90 br-lg">
+      <h3 className="card-title text-orange-light-3 ml-3">Add a Comment</h3>
       {error && <div>Error adding comment</div>}
       <form onSubmit={handleFormSubmit}>
         <div>
@@ -53,12 +46,14 @@ const CommentForm = ({ postId }) => {
           <textarea
             name="commentText"
             value={commentText}
-            onChange={(event) => setCommentText(event.target.value)}
+            onChange={handleChange}
             placeholder="Write your comment here..."
+            className="card col-12-xs mb-2 bg-blue-light-9"
           />
         </div>
-        <button type="submit">Add Comment</button>
+        <button className="btn-outlined-orange text-blue text-hover-white" type="submit">Add Comment</button>
       </form>
+      </div>
     </div>
   );
 };

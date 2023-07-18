@@ -1,30 +1,27 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
-    _id: ID!
-    username: String!
-    # firstName: String
-    # lastName: String
-    email: String!
+    _id: ID
+    username: String
+    email: String
+    password: String
     posts: [Post]!
-    friends: [ID!]!
-    minions: [ID!]!
   }
 
   type Post {
-    _id: ID!
+    _id: ID
     postText: String
-    userId: ID!
-    postDate: String
-    # likes: [ID!]!
+    postAuthor: String
+    createdAt: String
+    comments: [Comment]!
   }
 
   type Comment {
-    _id: ID!
+    _id: ID
     commentText: String
-    commentAuthor: User
-    commentDate: String
+    commentAuthor: String
+    createdAt: String
   }
 
   type Auth {
@@ -33,28 +30,20 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUser(id: ID!): User!
-    getPost(id: ID!): Post!
-    getProfilePosts(userId: ID!): [Post!]!
+    users: [User]
+    user(username: String!): User
+    posts(username: String): [Post]
+    post(postId: ID!): Post
+    me: User
   }
 
   type Mutation {
-    registerUser(username: String!, email: String!, password: String!): User!
-    loginUser(email: String!, password: String!): User!
-    updateUser(
-      id: ID!
-      username: String
-      email: String
-      password: String
-    ): User!
-    deleteUser(id: ID!): String!
-    createPost(userId: ID!, content: String!): Post!
-    updatePost(id: ID!, userId: ID!, content: String!): String!
-    deletePost(id: ID!, userId: ID!): String!
-    # likePost(id: ID!, userId: ID!): String!
-    # dislikePost(id: ID!, userId: ID!): String!
-    followUser(id: ID!, userId: ID!): String!
-    unfollowUser(id: ID!, userId: ID!): String!
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addPost(postText: String!): Post
+    addComment(postId: ID!, commentText: String!): Post
+    removePost(postId: ID!): Post
+    removeComment(postId: ID!, commentId: ID!): Post
   }
 `;
 

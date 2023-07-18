@@ -1,7 +1,9 @@
+
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/sea-tec-astronomy"
-);
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:/phonebook")
 
 module.exports = mongoose.connection;
+
+
