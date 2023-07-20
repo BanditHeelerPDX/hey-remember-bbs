@@ -16,7 +16,7 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_POSTS = gql`
-  query getPosts {
+  query posts {
     posts(username: $username) {
       _id
       postText
