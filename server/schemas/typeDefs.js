@@ -2,24 +2,24 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
-    _id: ID
-    username: String
-    email: String
+    _id: ID!
+    username: String!
+    email: String!
     password: String
     posts: [Post]!
     friends: [User]!
   }
 
   type Post {
-    _id: ID
-    postText: String
+    _id: ID!
+    postText: String!
     postAuthor: User
     createdAt: String
     comments: [Comment]!
   }
 
   type Comment {
-    _id: ID
+    _id: ID!
     commentText: String
     commentAuthor: User
     createdAt: String
