@@ -24,9 +24,9 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const ADD_POST = gql`
-  mutation addPost($postText: String!) {
-    addPost(postText: $postText) {
+export const CREATE_POST = gql`
+  mutation createPost($postText: String!) {
+    createPost(postText: $postText) {
       _id
       postText
       postAuthor
@@ -39,9 +39,9 @@ export const ADD_POST = gql`
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($postId: ID!, $commentText: String!) {
-    addComment(postId: $postId, commentText: $commentText) {
+export const CREATE_COMMENT = gql`
+  mutation createComment($postId: ID!, $commentText: String!) {
+    createComment(postId: $postId, commentText: $commentText) {
       _id
       postText
       postAuthor
