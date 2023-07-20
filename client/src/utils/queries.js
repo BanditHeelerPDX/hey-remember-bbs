@@ -17,7 +17,7 @@ export const QUERY_USER = gql`
 
 export const QUERY_POSTS = gql`
   query posts {
-    posts(username: $username) {
+    posts {
       _id
       postText
       postAuthor
