@@ -21,7 +21,7 @@ const Header = () => {
             <>
               <ul className="display-f">
                 <li className="ml-1 text-hover-secondary">
-                  <Link to="/Posts">
+                  <Link to="/posts">
                     Posts
                   </Link>
                 </li>
@@ -39,10 +39,10 @@ const Header = () => {
             <>
               <ul className="display-f">
                 <li className="ml-1 text-hover-secondary">
-                  <Link to="/Signup">Signup</Link>
+                  <Link to="/signup">Signup</Link>
                 </li>
                 <li className="ml-1 text-hover-secondary">
-                  <Link to="/Logon">Login</Link>
+                  <Link to="/logon">Login</Link>
                 </li>
               </ul>
             </>

@@ -32,7 +32,7 @@ const PostSchema = new Schema(
           trim: true,
         },
         commentAuthor: {
-          type: Schema.Types.ObjectId,
+          type: String,
           ref: "User",
         },
         commentDate: {
