@@ -1,6 +1,7 @@
-# hey-remember-bbs
+# Phone Book: Group Project 3
 
-## Description
+## Description  
+This application is a small, facebook-like app that allows users to create profiles, post threads that can be replied to and viewed from a user dashboard, and possibly see the future integration of a marketplace.
 
 ## Authors
 
