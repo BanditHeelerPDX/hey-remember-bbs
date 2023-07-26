@@ -71,7 +71,7 @@ const PostForm = () => {
                 >
                   Submit
                 </button>
-                {error && <div>{error.message}</div>}
+                {error && <div className="text-orange-light-3">{error.message}</div>}
               </form>
             </>
           ) : (

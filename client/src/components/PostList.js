@@ -12,16 +12,16 @@ const PostList = () => {
   const posts = data?.posts || [];
   return (
     <div className="display-f row justify-center mb-2">
-      <div className="card col-12-lg bg-blue-dark-4 o-90 m-2 pt-1 pb-2 br-sm text-orange-light-3">
+      <div className="card col-12-sm bg-blue-dark-4 o-90 m-2 pt-1 pb-2 br-sm text-orange-light-3">
         <h2 className="card-title ml-3">Posts</h2>
         {posts.length === 0 ? (
-          <p className="card-body col-12-lg">No posts found.</p>
+          <p className="card-body col-12-sm">No posts found.</p>
         ) : (
           <div className="card card bg-blue-light-6 m-2 pt-1 pb-1 br-lg text-purple-dark-7">
             {posts.map((post) => (
               <div key={post._id} className="card-body">
                 <div className="card bg-blue-light-9 br-lg m-1">
-                  <Link to={`/Post/${post._id}`}>
+                  <Link to={`/post/${post._id}`}>
                     <h3>{post.postText}</h3>
                   </Link>
                   <Link to={`/user/${post.postAuthor}`}>

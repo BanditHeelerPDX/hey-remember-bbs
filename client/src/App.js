@@ -50,11 +50,11 @@ function App() {
           <div className="content-container">
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/Posts" element={<Posts />} />
-              <Route path="/Post/:postId" element={<Post />} />
+              <Route path="/posts" element={<Posts />} />
+              <Route path="/post/:postId" element={<Post />} />
               <Route path="/me" element={<User />} />
-              <Route path="/profiles/:username" element={<User />} />
-              <Route path="/Logon" element={<Logon />} />
+              <Route path="/user/:username" element={<User />} />
+              <Route path="/logon" element={<Logon />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
           </div>

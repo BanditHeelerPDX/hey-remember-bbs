@@ -44,7 +44,7 @@ const CommentForm = ({ postId }) => {
               value={commentText}
               onChange={handleChange}
               placeholder="Write your comment here..."
-              className="card col-12-xs mb-2 bg-blue-light-9"
+              className="card col-12-sm mb-2 bg-blue-light-9"
             />
           </div>
           <button

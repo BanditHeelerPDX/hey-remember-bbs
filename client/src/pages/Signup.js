@@ -46,7 +46,7 @@ const Signup = () => {
           <div className="card-body flex-row justify-center mb-2">
             {data ? (
               <p>
-                <Link to="/Posts">come on in!.</Link>
+                <Link to="/posts">come on in!.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>

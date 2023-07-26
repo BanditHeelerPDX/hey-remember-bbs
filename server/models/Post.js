@@ -4,8 +4,9 @@ const User = require("./User");
 const PostSchema = new Schema(
   {
     postAuthor: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      required: true,
+    trim: true,
     },
     postText: {
       type: String,
@@ -14,7 +15,7 @@ const PostSchema = new Schema(
       maxlength: [225, "Posts cannot be longer than 225 characters"],
       trim: true,
     },
-    postDate: {
+    createdAt: {
       type: Date,
       default: Date.now,
     },
@@ -32,10 +33,10 @@ const PostSchema = new Schema(
           trim: true,
         },
         commentAuthor: {
-          type: Schema.Types.ObjectId,
+          type: String,
           ref: "User",
         },
-        commentDate: {
+        createdAt: {
           type: Date,
           default: Date.now,
         },

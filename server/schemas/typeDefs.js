@@ -13,7 +13,7 @@ const typeDefs = gql`
   type Post {
     _id: ID!
     postText: String!
-    postAuthor: User
+    postAuthor: String
     createdAt: String
     comments: [Comment]!
   }
@@ -21,7 +21,7 @@ const typeDefs = gql`
   type Comment {
     _id: ID!
     commentText: String
-    commentAuthor: User
+    commentAuthor: String
     createdAt: String
   }
 
